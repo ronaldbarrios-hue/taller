@@ -1,5 +1,4 @@
 export default class CountryController {
-
   constructor({ createCountry, getAllCountries }) {
     this.createCountry = createCountry;
     this.getAllCountries = getAllCountries;
@@ -23,4 +22,5 @@ export default class CountryController {
     }
   }
 
+ 
 }

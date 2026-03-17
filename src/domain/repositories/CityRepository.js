@@ -1,5 +1,5 @@
-export default class CountryRepository {
-  async save(country) {
+export default class CityRepository {
+  async save(city) {
     throw new Error("No implementado");
   }
 

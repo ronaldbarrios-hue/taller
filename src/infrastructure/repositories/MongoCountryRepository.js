@@ -1,16 +1,40 @@
-class MongoCountryRepository {
-  constructor() {
-    this.countries = [];
-  }
+import CountryRepository from "../../domain/repositories/CountryRepository.js";
+import countryModel from "../database/models/CountryModel.js";
 
-  async create(country) {
-    this.countries.push(country);
-    return country;
-  }
+export default class MongoCountryRepository extends CountryRepository {
+async save(country) {
 
-  async findAll() {
-    return this.countries;
-  }
+  const doc = await countryModel.findOneAndUpdate(
+    { sku: country.sku },
+    {
+      $set: {
+        precio: country.precio
+      },
+      $setOnInsert: {
+        sku: country.sku
+      }
+    },
+    {
+      upsert: true,
+      returnDocument: "after",
+      runValidators: true
+    }
+  );
+
+  return doc;
 }
 
-export default MongoCountryRepository;
+  async findAll() {
+    return await countryModel.find();
+  }
+
+  async findBySku(sku) {
+    return await countryModel.findOne({ sku }) ?? null;
+  }
+
+  async delete(sku) {
+    // CAMBIO: Usamos 'sku' para borrar, ya que es tu identificador único
+    const result = await countryModel.findOneAndDelete({ sku });
+    if (!result) throw new Error(`country with sku "${sku}" not found`);
+  }
+}

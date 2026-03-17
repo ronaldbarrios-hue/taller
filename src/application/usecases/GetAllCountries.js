@@ -1,11 +1,9 @@
 export default class GetAllCountries {
-
   constructor(countryRepository) {
     this.countryRepository = countryRepository;
   }
 
-  async execute() {
+  async ejecutar() {
     return await this.countryRepository.findAll();
   }
-
 }

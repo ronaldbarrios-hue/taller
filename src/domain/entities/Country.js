@@ -1,6 +1,6 @@
 export default class Country {
-  constructor({ name, population }) {
-    this.name = name;
-    this.population = Number(population);
+  constructor({ sku, precio }) {
+    this.sku = sku;
+    this.precio = precio;
   }
 }

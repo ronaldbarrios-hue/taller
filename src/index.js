@@ -1,22 +1,13 @@
-import express from "express";
+import app from "./app.js";
+import dotenv from "dotenv";
 import { connectMongo } from "./infrastructure/database/mongo.js";
-import { countryController } from "./infrastructure/config/container.js";
 
-const app = express();
-const PORT = 3000;
+dotenv.config();
 
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
 await connectMongo();
 
-app.get("/countries", (req, res) => {
-  countryController.getAll(req, res);
-});
-
-app.post("/countries", (req, res) => {
-  countryController.create(req, res);
-});
-
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
